@@ -80,6 +80,16 @@ on album.people_id = people.id
 group by
 	people.id;
 
+-- or
+
+select
+	distinct on (people.id) *
+from
+	people
+join
+	album on album.people_id = people.id
+order by
+	people.id, year desc;
 
 --7 List all albums along with its total duration based on summing the duration of its tracks.
 
@@ -252,3 +262,20 @@ where
 	artist.name = 'The Beatles';
 
 --16 Who are the artists who have recorded a given song writer's songs?
+
+select
+	artist.name
+from
+	people as artist
+inner join
+	album on album.people_id = artist.id
+inner join
+	track on track.album_id = album.id
+inner join
+	song on track.song_id = song.id
+inner join
+	people as songwriter on song.people_id = songwriter.id
+where
+	songwriter.id = 7
+group by
+	artist.id
