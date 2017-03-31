@@ -1,10 +1,11 @@
 var pgp = require('pg-promise')();
+var config = require('./config');
 
 var db = pgp({
-  host: '52.37.117.62',
-  database: 'music_database',
-  user: 'postgres',
-  password: '1Tape2beard3'
+  host: config.host,
+  database: config.database,
+  user: config.user,
+  password: config.password
 });
 
 db.any("select * from people")
